@@ -22,6 +22,7 @@ import com.hyphenate.EMMultiDeviceListener;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
+import com.hyphenate.chat.EMConferenceAttribute;
 import com.hyphenate.chat.EMConferenceManager;
 import com.hyphenate.chat.EMConferenceMember;
 import com.hyphenate.chat.EMConferenceStream;
@@ -64,6 +65,7 @@ import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.push.EMPushConfig;
 import com.hyphenate.util.EMLog;
 
 import org.json.JSONException;
@@ -176,10 +178,10 @@ public class DemoHelper {
 	 */
 	public void init(Context context) {
 	    demoModel = new DemoModel(context);
-	    EMOptions options = initChatOptions();
-//        options.setRestServer("118.193.28.212:31080");
-//        options.setIMServer("118.193.28.212");
-//        options.setImPort(31097);
+	    EMOptions options = initChatOptions(context);
+//        options.setRestServer("a1-hsb.easemob.com");
+//        options.setIMServer("39.107.54.56");
+//        options.setImPort(6717);
 
 	    //use default options if options is null
 		if (EaseUI.getInstance().init(context, options)) {
@@ -205,7 +207,7 @@ public class DemoHelper {
 	}
 
 
-    private EMOptions initChatOptions(){
+    private EMOptions initChatOptions(Context context){
         Log.d(TAG, "init HuanXin Options");
         
         EMOptions options = new EMOptions();
@@ -216,14 +218,21 @@ public class DemoHelper {
         // set if you need delivery ack
         options.setRequireDeliveryAck(false);
 
-        /**
-         * NOTE:你需要设置自己申请的Sender ID来使用Google推送功能，详见集成文档
-         */
-        options.setFCMNumber("921300338324");
-        //you need apply & set your own id if you want to use Mi push notification
-        options.setMipushConfig("2882303761517426801", "5381742660801");
         // 设置是否使用 fcm，有些华为设备本身带有 google 服务，
         options.setUseFCM(demoModel.isUseFCM());
+
+        /**
+         * NOTE:你需要设置自己申请的账号来使用三方推送功能，详见集成文档
+         */
+        EMPushConfig.Builder builder = new EMPushConfig.Builder(context);
+        builder.enableVivoPush() // 需要在AndroidManifest.xml中配置appId和appKey
+                .enableMeiZuPush("118654", "eaf530ff717f479cab93714d45972ff6")
+                .enableMiPush("2882303761517426801", "5381742660801")
+                .enableOppoPush("65872dc4c26a446a8f29014f758c8272",
+                        "9385ae4308d64b36bf82bc4d73c4369d")
+                .enableHWPush() // 需要在AndroidManifest.xml中配置appId
+                .enableFCM("921300338324");
+        options.setPushConfig(builder.build());
 
         //set custom servers, commonly used in private deployment
         if(demoModel.isCustomServerEnable() && demoModel.getRestServer() != null && demoModel.getIMServer() != null) {
@@ -582,6 +591,11 @@ public class DemoHelper {
 
             @Override
             public void onRoleChanged(EMConferenceManager.EMConferenceRole role) {
+            }
+
+            @Override
+            public void onAttributesUpdated(EMConferenceAttribute[] attributes) {
+
             }
         });
         //register incoming call receiver

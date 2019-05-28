@@ -30,6 +30,7 @@ import com.hyphenate.EMConferenceListener;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConference;
+import com.hyphenate.chat.EMConferenceAttribute;
 import com.hyphenate.chat.EMConferenceManager;
 import com.hyphenate.chat.EMConferenceMember;
 import com.hyphenate.chat.EMConferenceStream;
@@ -42,6 +43,7 @@ import com.hyphenate.chatuidemo.DemoHelper;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.ui.BaseActivity;
 import com.hyphenate.chatuidemo.utils.PhoneStateManager;
+import com.hyphenate.chatuidemo.utils.PreferenceManager;
 import com.hyphenate.chatuidemo.widget.EasePageIndicator;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
@@ -541,8 +543,10 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
      * 作为创建者创建并加入会议
      */
     private void createAndJoinConference(final EMValueCallBack<EMConference> callBack) {
+        boolean record = PreferenceManager.getInstance().isRecordOnServer();
+        boolean merge = PreferenceManager.getInstance().isMergeStream();
         EMClient.getInstance().conferenceManager().createAndJoinConference(EMConferenceManager.EMConferenceType.LargeCommunication,
-                password, new EMValueCallBack<EMConference>() {
+                password, record, merge, new EMValueCallBack<EMConference>() {
                     @Override
                     public void onSuccess(final EMConference value) {
                         EMLog.e(TAG, "create and join conference success");
@@ -939,14 +943,14 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:      // 电话挂断
                     // resume current voice conference.
-                    if (!normalParam.isAudioOff()) {
+                    if (normalParam.isAudioOff()) {
                         try {
                             EMClient.getInstance().callManager().resumeVoiceTransfer();
                         } catch (HyphenateException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (!normalParam.isVideoOff()) {
+                    if (normalParam.isVideoOff()) {
                         try {
                             EMClient.getInstance().callManager().resumeVideoTransfer();
                         } catch (HyphenateException e) {
@@ -991,6 +995,8 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         EMClient.getInstance().conferenceManager().removeConferenceListener(conferenceListener);
         DemoHelper.getInstance().popActivity(activity);
         super.onDestroy();
+        audioManager.setMode(AudioManager.MODE_NORMAL);
+        audioManager.setMicrophoneMute(false);
     }
 
     /**
@@ -1148,6 +1154,11 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
 
     @Override
     public void onRoleChanged(EMConferenceManager.EMConferenceRole role) {
+    }
+
+    @Override
+    public void onAttributesUpdated(EMConferenceAttribute[] attributes) {
+
     }
 
     private void openDebugPanel() {
