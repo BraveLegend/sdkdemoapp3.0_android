@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,7 +23,6 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chatuidemo.Constant;
 import com.hyphenate.chatuidemo.DemoHelper;
-import com.hyphenate.chatuidemo.DemoModel;
 import com.hyphenate.chatuidemo.R;
 import com.hyphenate.chatuidemo.conference.ConferenceActivity;
 import com.hyphenate.chatuidemo.conference.LiveActivity;
@@ -310,6 +308,26 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onCmdMessageReceived(List<EMMessage> messages) {
         super.onCmdMessageReceived(messages);
+    }
+
+    @Override
+    public void onNoticeList(Map<String, String> usersMap) {
+        super.onNoticeList(usersMap);
+    }
+
+    @Override
+    public void onContactStatusChanged(Map<String, String> userStatusMap) {
+        super.onContactStatusChanged(userStatusMap);
+    }
+
+    @Override
+    public void onQueryUserStatusList(Map<String, String> userStatusMap) {
+        super.onQueryUserStatusList(userStatusMap);
+    }
+
+    @Override
+    public void onAllContactsStatusList(Map<String, String> userStatusMap) {
+        super.onAllContactsStatusList(userStatusMap);
     }
 
     @Override

@@ -50,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -1235,6 +1236,26 @@ public class LiveActivity extends BaseActivity implements EMConferenceListener {
 
             @Override
             public void onMessageChanged(EMMessage message, Object change) {
+            }
+
+            @Override
+            public void onNoticeList(Map<String, String> usersMap) {
+
+            }
+
+            @Override
+            public void onContactStatusChanged(Map<String, String> userStatusMap) {
+
+            }
+
+            @Override
+            public void onQueryUserStatusList(Map<String, String> userStatusMap) {
+
+            }
+
+            @Override
+            public void onAllContactsStatusList(Map<String, String> userStatusMap) {
+
             }
         };
 
