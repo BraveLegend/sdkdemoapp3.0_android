@@ -26,7 +26,7 @@ public class ChatRowLivePresenter extends EaseChatRowPresenter {
         String confId = message.getStringAttribute(Constant.EM_CONFERENCE_ID, "");
         String confPassword = message.getStringAttribute(Constant.EM_CONFERENCE_PASSWORD,"");
         int type = message.getIntAttribute(Constant.EM_CONFERENCE_TYPE, 0);
-        DemoHelper.getInstance().goLive(confId, confPassword, message.getFrom());
+//        DemoHelper.getInstance().goLive(confId, confPassword, message.getFrom());
     }
 
 }

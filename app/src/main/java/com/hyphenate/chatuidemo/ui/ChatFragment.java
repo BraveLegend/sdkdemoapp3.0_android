@@ -26,8 +26,8 @@ import com.hyphenate.chatuidemo.Constant;
 import com.hyphenate.chatuidemo.DemoHelper;
 import com.hyphenate.chatuidemo.DemoModel;
 import com.hyphenate.chatuidemo.R;
-import com.hyphenate.chatuidemo.conference.ConferenceActivity;
-import com.hyphenate.chatuidemo.conference.LiveActivity;
+//import com.hyphenate.chatuidemo.conference.ConferenceActivity;
+//import com.hyphenate.chatuidemo.conference.LiveActivity;
 import com.hyphenate.chatuidemo.domain.EmojiconExampleGroupData;
 import com.hyphenate.chatuidemo.domain.RobotUser;
 import com.hyphenate.chatuidemo.widget.ChatRowConferenceInvitePresenter;
@@ -331,16 +331,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             selectFileFromLocal();
             break;
         case ITEM_VOICE_CALL:
-            startVoiceCall();
+//            startVoiceCall();
             break;
         case ITEM_VIDEO_CALL:
-            startVideoCall();
+//            startVideoCall();
             break;
         case ITEM_CONFERENCE_CALL:
-            ConferenceActivity.startConferenceCall(getActivity(), toChatUsername);
+//            ConferenceActivity.startConferenceCall(getActivity(), toChatUsername);
             break;
         case ITEM_LIVE:
-            LiveActivity.startLive(getContext(), toChatUsername);
+//            LiveActivity.startLive(getContext(), toChatUsername);
             break;
         default:
             break;
@@ -363,7 +363,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     /**
      * make a voice call
      */
-    protected void startVoiceCall() {
+    /*protected void startVoiceCall() {
         if (!EMClient.getInstance().isConnected()) {
             Toast.makeText(getActivity(), R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
         } else {
@@ -372,12 +372,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             // voiceCallBtn.setEnabled(false);
             inputMenu.hideExtendMenuContainer();
         }
-    }
+    }*/
     
     /**
      * make a video call
      */
-    protected void startVideoCall() {
+    /*protected void startVideoCall() {
         if (!EMClient.getInstance().isConnected())
             Toast.makeText(getActivity(), R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
         else {
@@ -386,7 +386,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             // videoCallBtn.setEnabled(false);
             inputMenu.hideExtendMenuContainer();
         }
-    }
+    }*/
     
     /**
      * chat row provider 

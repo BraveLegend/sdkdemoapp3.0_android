@@ -289,10 +289,10 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		
 		if (settingsModel.isAdaptiveVideoEncode()) {
             switch_adaptive_video_encode.openSwitch();
-			EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
+//			EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
         } else {
             switch_adaptive_video_encode.closeSwitch();
-			EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
+//			EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(true);
         }
 
 		if(settingsModel.isCustomServerEnable()){
@@ -438,7 +438,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 				}
 				break;
 			case R.id.rl_switch_adaptive_video_encode:
-				EMLog.d("switch", "" + !switch_adaptive_video_encode.isSwitchOpen());
+				/*EMLog.d("switch", "" + !switch_adaptive_video_encode.isSwitchOpen());
 				if (switch_adaptive_video_encode.isSwitchOpen()){
 					switch_adaptive_video_encode.closeSwitch();
 					settingsModel.setAdaptiveVideoEncode(false);
@@ -448,7 +448,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 					switch_adaptive_video_encode.openSwitch();
 					settingsModel.setAdaptiveVideoEncode(true);
 					EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(false);
-				}
+				}*/
 				break;
 			case R.id.btn_logout:
 				logout();
@@ -463,7 +463,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 				startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
 				break;
 			case R.id.ll_call_option:
-				startActivity(new Intent(getActivity(), CallOptionActivity.class));
+//				startActivity(new Intent(getActivity(), CallOptionActivity.class));
 				break;
 			case R.id.ll_multi_device_management:
 				startActivity(new Intent(getActivity(), MultiDeviceActivity.class));

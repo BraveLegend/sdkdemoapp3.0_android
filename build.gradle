@@ -48,7 +48,7 @@ ext{
         isLite = false;
     }
     if(!project.hasProperty('sdkVersion')){
-        sdkVersion = '3.2.3'
+        sdkVersion = '3.6.2'
     }
     if(!project.hasProperty('isTravis')) {
         isTravis = false

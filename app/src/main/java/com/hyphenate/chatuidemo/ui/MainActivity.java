@@ -44,7 +44,7 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.EMMultiDeviceListener;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConferenceManager;
+//import com.hyphenate.chat.EMConferenceManager;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chatuidemo.Constant;
 import com.hyphenate.chatuidemo.DemoHelper;
@@ -54,15 +54,13 @@ import com.hyphenate.chatuidemo.db.InviteMessgeDao;
 import com.hyphenate.chatuidemo.db.UserDao;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsManager;
 import com.hyphenate.chatuidemo.runtimepermissions.PermissionsResultAction;
+import com.hyphenate.easeui.model.EasePreferenceManager;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity {
@@ -172,6 +170,47 @@ public class MainActivity extends BaseActivity {
 
 		// 获取华为 HMS 推送 token
 		HMSPushHelper.getInstance().getHMSToken(this);
+
+		//获取所有已订阅用户上下线状态列表
+		EMClient.getInstance().chatManager().getAllContactsStatusList(new EMCallBack() {
+			@Override
+			public void onSuccess() {
+				//调用成功
+				EMLog.d(TAG, "getAllContactsStatusList onSuccess");
+				Set<String> noticeUsers = EasePreferenceManager.getInstance().getNoticeUsers();
+				if(noticeUsers != null && noticeUsers.size() > 0) {
+					EasePreferenceManager.getInstance().removeNoticeUsers();
+				}
+			}
+
+			@Override
+			public void onError(int code, String error) {
+				//调用失败
+				EMLog.d(TAG, "getAllContactsStatusList onError:" + code + ",error=" + error);
+			}
+
+			@Override
+			public void onProgress(int progress, String status) {
+
+			}
+		});
+
+		EMClient.getInstance().chatManager().getNoticeList(new EMCallBack() {
+			@Override
+			public void onSuccess() {
+				EMLog.d(TAG, "getNoticeList onSuccess");
+			}
+
+			@Override
+			public void onError(int code, String error) {
+				EMLog.d(TAG, "getNoticeList onError:" + code + ",error=" + error);
+			}
+
+			@Override
+			public void onProgress(int progress, String status) {
+
+			}
+		});
 	}
 
 	EMClientListener clientListener = new EMClientListener() {
@@ -277,6 +316,26 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public void onMessageChanged(EMMessage message, Object change) {}
+
+		@Override
+		public void onNoticeList(Map<String, String> usersMap) {
+
+		}
+
+		@Override
+		public void onContactStatusChanged(Map<String, String> userStatusMap) {
+
+		}
+
+		@Override
+		public void onQueryUserStatusList(Map<String, String> userStatusMap) {
+
+		}
+
+		@Override
+		public void onAllContactsStatusList(Map<String, String> userStatusMap) {
+
+		}
 	};
 
 	private void refreshUIWithMessage() {

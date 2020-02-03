@@ -226,46 +226,6 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
 
-        <!-- 语音通话 -->
-        <activity
-            android:name=".ui.VoiceCallActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
-        <!-- 视频通话 -->
-        <activity
-            android:name=".ui.VideoCallActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
-        <!--多人会议-->
-        <activity
-            android:name=".conference.ConferenceActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
-        <!-- 直播模式 -->
-        <activity
-            android:name=".conference.LiveActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
-        <!-- 会议成员邀请 -->
-        <activity
-            android:name=".conference.ConferenceInviteActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/nornal_style"
-            android:windowSoftInputMode="adjustPan"/>
-
         <!-- 群聊简单信息 -->
         <activity
             android:name=".ui.GroupSimpleDetailActivity"
@@ -359,10 +319,6 @@
             android:theme="@style/horizontal_slide" />
         <activity
             android:name=".ui.OfflinePushSettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" />
-        <activity
-            android:name=".ui.CallOptionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
 

@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.hyphenate.chatuidemo.DemoHelper;
-import com.hyphenate.chatuidemo.ui.VideoCallActivity;
-import com.hyphenate.chatuidemo.ui.VoiceCallActivity;
 import com.hyphenate.util.EMLog;
 
 public class CallReceiver extends BroadcastReceiver{
@@ -33,7 +31,7 @@ public class CallReceiver extends BroadcastReceiver{
 		String from = intent.getStringExtra("from");
 		//call type
 		String type = intent.getStringExtra("type");
-		if("video".equals(type)){ //video call
+		/*if("video".equals(type)){ //video call
 		    context.startActivity(new Intent(context, VideoCallActivity.class).
                     putExtra("username", from).putExtra("isComingCall", true).
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
@@ -41,7 +39,7 @@ public class CallReceiver extends BroadcastReceiver{
 		    context.startActivity(new Intent(context, VoiceCallActivity.class).
 		            putExtra("username", from).putExtra("isComingCall", true).
 		            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-		}
+		}*/
 		EMLog.d("CallReceiver", "app received a incoming call");
 	}
 

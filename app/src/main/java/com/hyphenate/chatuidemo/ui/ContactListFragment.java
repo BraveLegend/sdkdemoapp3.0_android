@@ -31,8 +31,8 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chatuidemo.DemoHelper;
 import com.hyphenate.chatuidemo.DemoHelper.DataSyncListener;
 import com.hyphenate.chatuidemo.R;
-import com.hyphenate.chatuidemo.conference.ConferenceActivity;
-import com.hyphenate.chatuidemo.conference.LiveActivity;
+//import com.hyphenate.chatuidemo.conference.ConferenceActivity;
+//import com.hyphenate.chatuidemo.conference.LiveActivity;
 import com.hyphenate.chatuidemo.db.InviteMessgeDao;
 import com.hyphenate.chatuidemo.db.UserDao;
 import com.hyphenate.chatuidemo.widget.ContactItemView;
@@ -51,6 +51,7 @@ import java.util.Map;
 public class ContactListFragment extends EaseContactListFragment {
 	
     private static final String TAG = ContactListFragment.class.getSimpleName();
+    private ContactNoticeListListener contactNoticeListener;
     private ContactSyncListener contactSyncListener;
     private BlackListSyncListener blackListSyncListener;
     private ContactInfoSyncListener contactInfoSyncListener;
@@ -139,8 +140,10 @@ public class ContactListFragment extends EaseContactListFragment {
                 startActivity(new Intent(getActivity(), AddContactActivity.class));
             }
         });
-        
-        
+
+        contactNoticeListener = new ContactNoticeListListener();
+        DemoHelper.getInstance().addContactNoticeListener(contactNoticeListener);
+
         contactSyncListener = new ContactSyncListener();
         DemoHelper.getInstance().addSyncContactListener(contactSyncListener);
         
@@ -160,6 +163,11 @@ public class ContactListFragment extends EaseContactListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (contactNoticeListener != null) {
+            DemoHelper.getInstance().removeContactNoticeListener(contactNoticeListener);
+            contactNoticeListener = null;
+        }
+
         if (contactSyncListener != null) {
             DemoHelper.getInstance().removeSyncContactListener(contactSyncListener);
             contactSyncListener = null;
@@ -197,7 +205,7 @@ public class ContactListFragment extends EaseContactListFragment {
                 startActivity(new Intent(getActivity(), RobotsActivity.class));
                 break;
             case R.id.conference_item: // 创建音视频会议
-                ConferenceActivity.startConferenceCall(getActivity(), null);
+//                ConferenceActivity.startConferenceCall(getActivity(), null);
                 break;
             default:
                 break;
@@ -337,6 +345,23 @@ public class ContactListFragment extends EaseContactListFragment {
             });
         }
         
+    }
+
+    class ContactNoticeListListener implements DataSyncListener {
+
+        @Override
+        public void onSyncComplete(boolean success) {
+            getActivity().runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    loadingView.setVisibility(View.GONE);
+                    if (success) {
+                        contactListLayout.notifyUserStatusChanged();
+                    }
+                }
+            });
+        }
     }
 	
 }
